@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const TableComponent = styled.div`
-padding: 100px;
 `
 
 export const Table = styled.table`
@@ -30,6 +29,7 @@ export const TableRow = styled.td`
     border-left: 1px solid #DDDDDD;
     border-top: 1px solid #DDDDDD;
     padding: 15px;
+    position: relative;
 
     .info {
         display: flex;
@@ -44,7 +44,6 @@ export const TableRow = styled.td`
             transition: 0.3s ease-in-out;
         }
     }
-
 
     &:first-of-type {
         border-left: none;

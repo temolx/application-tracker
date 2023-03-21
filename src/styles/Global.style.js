@@ -11,4 +11,12 @@ export const GlobalStyles = createGlobalStyle`
         font-size: 25px;
         margin-bottom: 5px;
     }
+
+    .edit-icon {
+    transition: 0.3s ease-in-out;
+        &:hover {
+            transform: scale(1.2);
+            color: green;
+        }
+    }
 `
