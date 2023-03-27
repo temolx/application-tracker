@@ -6,6 +6,15 @@ export const TableComponent = styled.div`
 export const Table = styled.table`
     border-collapse: collapse;
     width: 100%;
+
+    .activeRow {
+        background-color: #E4EDEC;
+        cursor: pointer;
+
+        h4, .icon {
+            color: #000;
+        }
+    }
 `
 
 export const TableHeader = styled.th`

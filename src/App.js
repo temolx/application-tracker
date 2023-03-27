@@ -13,10 +13,33 @@ export const AppContext = createContext(null);
 function App() {
 
   const[addVisible, setAddVisible] = useState(false);
-  const[jobs, setJobs] = useState([]);
+  const[jobs, setJobs] = useState([
+    {
+      position: 'Front-End Developer',
+      company: 'Google',
+      location: 'Los Angelesm CA',
+      status: 'Applied',
+      date: '3/27/23',
+    },
+    {
+      position: 'Back-End Developer',
+      company: 'Meta',
+      location: 'San Francisco CA',
+      status: 'Interview',
+      date: '3/26/23',
+    },
+    {
+      position: 'Financial Assistant',
+      company: 'Netflix',
+      location: 'Atnalnta GA',
+      status: 'Applied',
+      date: '3/24/23',
+    },
+  ]);
+  const[selectedJob, setSelectedJob] = useState([]);
 
   return (
-    <AppContext.Provider value={{ jobs, setJobs, addVisible, setAddVisible }}>
+    <AppContext.Provider value={{ jobs, setJobs, addVisible, setAddVisible, selectedJob, setSelectedJob, selectedJob }}>
       <AppWrap>
         <GlobalStyles />
 
