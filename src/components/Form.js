@@ -57,7 +57,7 @@ function Form() {
         <form onSubmit={addJob}>
             <IconButton
                 onClick={() => setAddVisible(false)}
-            ><RxEyeClosed className='icon' /></IconButton>
+            ><RxEyeClosed className='closeIcon' /></IconButton>
 
                 { inputInfo.map((input) => (
                     <InputWrap>

@@ -10,9 +10,10 @@ export const FormWrap = styled.div`
     padding: 50px;
     border-radius: 10px;
     width: 220px;
+    height: 400px;
     box-shadow: 10px 10px 57px -3px rgba(0,0,0,0.27);
 
-    .icon {
+    .closeIcon {
         position: absolute;
         top: 20px;
         right: 25px;
@@ -40,9 +41,6 @@ export const FormLabel = styled.label`
 `
 
 export const SubmitButton = styled.input`
-    display: flex;
-    margin: 0 auto;
-    margin-top: 20px;
     font-size: 16px;
     background-color: #fff;
     color: #000;
@@ -52,6 +50,11 @@ export const SubmitButton = styled.input`
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s ease-in-out;
+
+    position: absolute;
+    bottom: 43px;
+    left: 50%;
+    transform: translateX(-50%);
 
     &:hover {
         background-color: #005149;

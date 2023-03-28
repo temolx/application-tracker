@@ -11,7 +11,7 @@ import { inputInfo } from '../inputInfo';
 
 function JobTracker() {
 
-    const { jobs, setSelectedJob, selectedJob } = useContext(AppContext);
+    const { jobs, setSelectedJob, selectedJob, filters } = useContext(AppContext);
 
     const checkItem = (job) => {        
         if (!selectedJob.some((el) => el === job)) {
@@ -33,7 +33,27 @@ function JobTracker() {
                 ))}
             </tr>
 
-            { jobs && jobs.map((job) => (
+            { jobs && jobs.filter((el) => {
+                if (filters.position !== '') { // this could be more dynamic-ish
+                    return filters.position === el.position;
+                } else return el;
+            }).filter((el) => {
+                if (filters.company !== '') {
+                    return filters.company === el.company;
+                } else return el;
+            }).filter((el) => {
+                if (filters.location !== '') {
+                    return filters.location === el.location;
+                } else return el;
+            }).filter((el) => {
+                if (filters.status !== '') {
+                    return filters.status === el.status;
+                } else return el;
+            }).filter((el) => {
+                if (filters.date !== '') {
+                    return filters.date === el.date;
+                } else return el;
+            }).map((job) => (
                 <Row className={selectedJob.some((el) => el === job) ? 'activeRow' : ''}>
                     <TableRow><Checkbox type='checkbox' onChange={() => checkItem(job)} checked={selectedJob.some((el) => el === job)} /></TableRow>
                     <TableRow><div className='info'><h4>{ job.position }</h4> <BiEdit className='icon edit-icon' /></div></TableRow>

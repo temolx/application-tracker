@@ -5,8 +5,10 @@ import JobTracker from './components/JobTracker';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Form from './components/Form';
+import Filter from './components/Filter';
 
 import { createContext, useState } from 'react';
+import { inputInfo } from './inputInfo';
 
 export const AppContext = createContext(null);
 
@@ -35,11 +37,20 @@ function App() {
       status: 'Applied',
       date: '3/24/23',
     },
+    {
+      position: 'Back-End Developer',
+      company: 'Pornhub',
+      location: 'Los Angeles CA',
+      status: 'Accepted',
+      date: '3/27/23',
+    },
   ]);
   const[selectedJob, setSelectedJob] = useState([]);
+  const[filters, setFilters] = useState(Object.fromEntries(inputInfo.map((item) => [item.type, ''])))
+  const[filterVisibility, setFilterVisibility] = useState(false);
 
   return (
-    <AppContext.Provider value={{ jobs, setJobs, addVisible, setAddVisible, selectedJob, setSelectedJob, selectedJob }}>
+    <AppContext.Provider value={{ jobs, setJobs, addVisible, setAddVisible, selectedJob, setSelectedJob, selectedJob, filters, setFilters, setFilterVisibility, filterVisibility }}>
       <AppWrap>
         <GlobalStyles />
 
@@ -47,6 +58,7 @@ function App() {
         <Header />
         <JobTracker />
 
+        { filterVisibility ? <Filter /> : null }
         { addVisible ? <Form /> : null }
       </AppWrap>
     </AppContext.Provider>

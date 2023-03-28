@@ -8,7 +8,7 @@ import { AppContext } from "../App";
 
 function Header() {
 
-  const { setAddVisible, selectedJob, setSelectedJob, setJobs, jobs } = useContext(AppContext);
+  const { setAddVisible, selectedJob, setSelectedJob, setJobs, jobs, setFilterVisibility, filterVisibility, addVisible } = useContext(AppContext);
 
   const[visible, setVisible] = useState(false);
 
@@ -29,9 +29,11 @@ function Header() {
   return (
     <HeaderWrap>
         <IconButton
-          onClick={() => setAddVisible(true)}
+          onClick={() => !filterVisibility && setAddVisible(true)}
         ><MdLibraryAdd className='icon' /></IconButton>
-        <IconButton><MdFilterList className='icon' /></IconButton>
+        <IconButton
+          onClick={() => !addVisible && setFilterVisibility(true)}
+        ><MdFilterList className='icon' /></IconButton>
         
         <IconButton onClick={showDropdown}>
           
