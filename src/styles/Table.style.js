@@ -90,13 +90,24 @@ export const InputContainer = styled.div`
         }
 
         input {
-            /* position: absolute;
-            top: 50%;
-            transform: translateY(-50%); */
             width: 110px;
             border-radius: 5px;
             border: 1px solid black;
             outline: 0.5px solid #005149;
             padding: 4px;
+        }
+
+        @keyframes incorrectAnim {
+            0% {
+                transform: translateX(-25px);
+            }
+        }
+
+        .incorrect-btn {
+            background: none;
+            color: #FF3434;
+            border: 1.5px solid #FF3434;
+            transition: 0.3s ease-in-out;
+            animation: incorrectAnim 0.3s ease;
         }
 `

@@ -30,7 +30,7 @@ export const SaveBtn = styled.button`
     cursor: pointer;
 
     &:hover {
-        background: none;;
+        background: none;
         color: #005149;
         border: 1.5px solid #005149;
     }

@@ -12,9 +12,11 @@ import { inputInfo } from '../inputInfo';
 
 function JobTracker() {
 
-    const { jobs, setSelectedJob, selectedJob, filters, search } = useContext(AppContext);
+    const { jobs, setSelectedJob, selectedJob, filters, search, setJobs } = useContext(AppContext);
 
-    const[editMode, setEditMode] = useState({...Object.fromEntries(inputInfo.map((el) => [el.type, false])), index: null});
+    const[editMode, setEditMode] = useState({...Object.fromEntries(inputInfo.map((el) => [el.type, false])), arrIndex: null, keyIndex: null});
+    const[input, setInput] = useState('');
+    const[incorrectInput, setIncorrectInput] = useState(false);
 
     const checkItem = (job) => {        
         if (!selectedJob.some((el) => el === job)) {
@@ -26,14 +28,40 @@ function JobTracker() {
         }
     }
 
-    const handleEdit = (myKey, index) => {
+    const showEditing = (myKey, arrIndex, keyIndex) => {
         setEditMode({
             ...editMode,
             [myKey]: true,
-            index: index
+            arrIndex,
+            keyIndex,
         })
 
-        console.log(editMode);
+        setIncorrectInput(false);
+    }
+
+    const handleEdit = (arrIndex, key) => {
+        if (input !== '') {
+            const updatedJobs = jobs.map((job, index) => {
+                if (index === arrIndex) {
+                    return {
+                        ...job,
+                        [key]: input
+                    }
+                }
+                return job;
+            })
+
+            setJobs(updatedJobs);
+            setEditMode({
+                ...editMode,
+                [key]: false,
+                arrIndex: null,
+                keyIndex: null
+            })
+        }
+        else setIncorrectInput(true);
+
+        setInput('');
     }
 
   return (
@@ -68,21 +96,25 @@ function JobTracker() {
                 } else return el;
             }).filter((el) => {
                 if (search !== '') {
-                    return el.position.toLowerCase().includes(search.toLowerCase());
+                    return el.position.toLowerCase().includes(search.toLowerCase()) || el.company.toLowerCase().includes(search.toLowerCase());
                 } return el;
             }).map((job, index) => (
                 <Row className={selectedJob.some((el) => el === job) ? 'activeRow' : ''}>
                     <TableRow><Checkbox type='checkbox' onChange={() => checkItem(job)} checked={selectedJob.some((el) => el === job)} /></TableRow>
 
-                    <TableRow>{editMode.position && editMode.index === index ? <InputContainer><input type='text' defaultValue={job.position} /> <SaveBtn>Save</SaveBtn></InputContainer> : <InputContainer><h4>{ job.position }</h4> <BiEdit className='icon edit-icon' onClick={() => handleEdit('position', index)} /></InputContainer>}</TableRow>
-
-                    <TableRow>{editMode.company && editMode.index === index ? <InputContainer><input type='text' defaultValue={job.company} /> <SaveBtn>Save</SaveBtn></InputContainer> : <InputContainer><h4>{ job.company }</h4> <BiEdit className='icon edit-icon' onClick={() => handleEdit('company', index)} /></InputContainer>}</TableRow>
-
-                    
-                    {/* <TableRow><div className='info'><h4>{ job.company }</h4> <BiEdit className='icon edit-icon' /></div></TableRow> */}
-                    <TableRow><div className='info'><h4>{ job.location }</h4> <BiEdit className='icon edit-icon' /></div></TableRow>
-                    <TableRow><div className='info'><h4>{ job.status }</h4> <MdArrowDropDown className='icon status-dropdown edit-icon' /></div></TableRow>
-                    <TableRow><div className='info'><h4>{ job.date }</h4> <BiEdit className='icon edit-icon' /></div></TableRow>
+                    { Object.keys(job).map((key, i) => (
+                        <TableRow>{editMode.position && editMode.arrIndex === index && editMode.keyIndex === i ? 
+                            <InputContainer>
+                                <input type='text' defaultValue={job[key]} onChange={(e) => setInput(e.target.value)} />
+                                <SaveBtn onClick={() => handleEdit(index, key)} className={incorrectInput ? 'incorrect-btn' : ''}>Save</SaveBtn>
+                            </InputContainer> : 
+                            
+                            <InputContainer>
+                                <h4>{ job[key] }</h4>
+                                { key === 'status' ? <MdArrowDropDown className='icon status-dropdown edit-icon' /> : <BiEdit className='icon edit-icon' onClick={() => showEditing('position', index, i)} /> }
+                            </InputContainer>}
+                        </TableRow>
+                    )) }
                 </Row>
             )) }
 
