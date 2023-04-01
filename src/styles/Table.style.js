@@ -75,3 +75,28 @@ export const Row = styled.tr`
         }
     }
 `
+
+export const InputContainer = styled.div`
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #C2C2C2;
+
+            h4 {
+            font-weight: 500;
+            text-align: left;
+            display: flex;
+            transition: 0.3s ease-in-out;
+        }
+
+        input {
+            /* position: absolute;
+            top: 50%;
+            transform: translateY(-50%); */
+            width: 110px;
+            border-radius: 5px;
+            border: 1px solid black;
+            outline: 0.5px solid #005149;
+            padding: 4px;
+        }
+`

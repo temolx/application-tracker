@@ -1,4 +1,5 @@
 import { FormWrap, FormInput, FormLabel, InputWrap, SubmitButton, Error } from '../styles/Form.style'
+import { BGContainer } from '../styles/Main.style';
 import { IconButton } from '../styles/Main.style';
 
 import { inputInfo } from '../inputInfo'
@@ -53,6 +54,7 @@ function Form() {
     }
 
   return (
+    <BGContainer>
     <FormWrap>
         <form onSubmit={addJob}>
             <IconButton
@@ -75,6 +77,7 @@ function Form() {
         <Error>{ errors.empty }</Error>
         <Error>{ errors.exists }</Error>
     </FormWrap>
+    </BGContainer>
   )
 }
 

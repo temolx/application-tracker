@@ -2,12 +2,24 @@ import styled from "styled-components";
 
 export const HeaderWrap = styled.div`
     display: flex;
-    float: right;
+    justify-content: space-between;
     margin-bottom: 10px;
     position: relative;
 
     .settins-icon {
         margin-left: 15px;
+    }
+
+    input {
+        border-radius: 5px;
+        border: 1px solid #000;
+        font-weight: 600;
+        padding: 5px;
+        margin-right: 5px;
+
+        &:focus {
+            outline: 1px solid #005149;
+        }
     }
 `
 

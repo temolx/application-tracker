@@ -1,14 +1,14 @@
 import { MdLibraryAdd, MdFilterList } from "react-icons/md";
 import { BiDotsVerticalRounded, BiTrash, BiCheckSquare } from "react-icons/bi";
 import { HeaderWrap, SettingsDropdown } from '../styles/Header.style';
-import { IconButton } from '../styles/Main.style';
+import { IconButton, SaveBtn } from '../styles/Main.style';
 
 import { useContext, useState } from "react";
 import { AppContext } from "../App";
 
 function Header() {
 
-  const { setAddVisible, selectedJob, setSelectedJob, setJobs, jobs, setFilterVisibility, filterVisibility, addVisible } = useContext(AppContext);
+  const { setAddVisible, selectedJob, setSelectedJob, setJobs, jobs, setFilterVisibility, filterVisibility, addVisible, setSearch, search } = useContext(AppContext);
 
   const[visible, setVisible] = useState(false);
 
@@ -28,22 +28,29 @@ function Header() {
 
   return (
     <HeaderWrap>
-        <IconButton
-          onClick={() => !filterVisibility && setAddVisible(true)}
-        ><MdLibraryAdd className='icon' /></IconButton>
-        <IconButton
-          onClick={() => !addVisible && setFilterVisibility(true)}
-        ><MdFilterList className='icon' /></IconButton>
-        
-        <IconButton onClick={showDropdown}>
-          
-          <BiDotsVerticalRounded className='icon settins-icon' />
-          </IconButton>
+        <div>
+          <input type='text' onChange={(e) => setSearch(e.target.value)} value={search} />
+          <SaveBtn onClick={() => setSearch('')}>Clear</SaveBtn>
+        </div>
 
-          { visible ? <SettingsDropdown>
-            <button onClick={() => handleDelete()} disabled={selectedJob.length === 0}>Delete <BiTrash className='icon' /></button>
-            <button disabled={selectedJob.length === 0}>Complete <BiCheckSquare className='icon' /></button>
-          </SettingsDropdown> : null }
+        <div>
+          <IconButton
+            onClick={() => !filterVisibility && setAddVisible(true)}
+          ><MdLibraryAdd className='icon' /></IconButton>
+          <IconButton
+            onClick={() => !addVisible && setFilterVisibility(true)}
+          ><MdFilterList className='icon' /></IconButton>
+          
+          <IconButton onClick={showDropdown}>
+            
+            <BiDotsVerticalRounded className='icon settins-icon' />
+            </IconButton>
+
+            { visible ? <SettingsDropdown>
+              <button onClick={() => handleDelete()} disabled={selectedJob.length === 0}>Delete <BiTrash className='icon' /></button>
+              <button disabled={selectedJob.length === 0}>Complete <BiCheckSquare className='icon' /></button>
+            </SettingsDropdown> : null }
+          </div>
     </HeaderWrap>
   )
 }

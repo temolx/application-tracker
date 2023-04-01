@@ -4,7 +4,7 @@ import { inputInfo } from '../inputInfo'
 
 import { SelectWrap, FilterSelect, FilterLabel, ClearButton } from '../styles/Filter.style'
 import { FormWrap, SubmitButton } from '../styles/Form.style'
-import { IconButton } from '../styles/Main.style'
+import { IconButton, BGContainer } from '../styles/Main.style'
 
 import { RxEyeClosed } from "react-icons/rx";
 import { AiOutlinePlusSquare as PlusIcon, AiOutlineMinusSquare as MinusIcon } from "react-icons/ai";
@@ -59,6 +59,7 @@ function Filter() {
     }
 
   return (
+    <BGContainer>
     <FormWrap>
         <form onSubmit={handleSubmit}>
             <IconButton><RxEyeClosed className='closeIcon'
@@ -87,6 +88,7 @@ function Filter() {
             <SubmitButton type='submit' />
         </form>
     </FormWrap>
+    </BGContainer>
   )
 }
 

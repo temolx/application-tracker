@@ -39,7 +39,7 @@ function App() {
     },
     {
       position: 'Back-End Developer',
-      company: 'Pornhub',
+      company: 'Twitter',
       location: 'Los Angeles CA',
       status: 'Accepted',
       date: '3/27/23',
@@ -48,9 +48,10 @@ function App() {
   const[selectedJob, setSelectedJob] = useState([]);
   const[filters, setFilters] = useState(Object.fromEntries(inputInfo.map((item) => [item.type, ''])))
   const[filterVisibility, setFilterVisibility] = useState(false);
+  const[search, setSearch] = useState('');
 
   return (
-    <AppContext.Provider value={{ jobs, setJobs, addVisible, setAddVisible, selectedJob, setSelectedJob, selectedJob, filters, setFilters, setFilterVisibility, filterVisibility }}>
+    <AppContext.Provider value={{ jobs, setJobs, addVisible, setAddVisible, selectedJob, setSelectedJob, selectedJob, filters, setFilters, setFilterVisibility, filterVisibility, search, setSearch }}>
       <AppWrap>
         <GlobalStyles />
 
