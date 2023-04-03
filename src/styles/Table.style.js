@@ -77,6 +77,7 @@ export const Row = styled.tr`
 `
 
 export const InputContainer = styled.div`
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -109,5 +110,23 @@ export const InputContainer = styled.div`
             border: 1.5px solid #FF3434;
             transition: 0.3s ease-in-out;
             animation: incorrectAnim 0.3s ease;
+
+            &:hover {
+                color: #C92020;
+                border: 1.5px solid #C92020;
+            }
         }
+`
+
+export const EditDropdown = styled.div`
+    position: absolute;
+    top: 45px;
+    left: 100px;
+    width: 100%;
+    color: #000;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 0 15px;
+    z-index: 999;
+    box-shadow: 10px 10px 97px -10px rgba(0,0,0,0.20);
 `

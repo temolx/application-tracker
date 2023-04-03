@@ -1,9 +1,10 @@
 import { useContext, useState } from 'react'
 import { AppContext } from '../App';
 
-import { Table, TableHeader, TableRow, TableComponent, Row, InputContainer } from '../styles/Table.style'
+import { Table, TableHeader, TableRow, TableComponent, Row, InputContainer, EditDropdown } from '../styles/Table.style'
+import { Option } from '../styles/Form.style';
 import { Checkbox } from '../styles/Input.style'
-import { SaveBtn } from '../styles/Main.style';
+import { SaveBtn, CancelBtn } from '../styles/Main.style';
 
 import { MdArrowDropDown } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
@@ -14,13 +15,20 @@ function JobTracker() {
 
     const { jobs, setSelectedJob, selectedJob, filters, search, setJobs } = useContext(AppContext);
 
-    const[editMode, setEditMode] = useState({...Object.fromEntries(inputInfo.map((el) => [el.type, false])), arrIndex: null, keyIndex: null});
+    const defaultEditSetting = {...Object.fromEntries(inputInfo.map((el) => [el.type, false])), arrIndex: null, keyIndex: null};
+
+    const[editMode, setEditMode] = useState(defaultEditSetting);
     const[input, setInput] = useState('');
     const[incorrectInput, setIncorrectInput] = useState(false);
+    const[displayDropdown, setDisplayDropdown] = useState({
+        arrIndex: null,
+        keyIndex: null
+    });
 
     const checkItem = (job) => {        
         if (!selectedJob.some((el) => el === job)) {
             setSelectedJob([...selectedJob, job]);
+            setEditMode(defaultEditSetting)
         }
         else {
             const updatedSelected = selectedJob.filter((el) => el !== job);
@@ -37,6 +45,7 @@ function JobTracker() {
         })
 
         setIncorrectInput(false);
+        setSelectedJob([]);
     }
 
     const handleEdit = (arrIndex, key) => {
@@ -62,6 +71,23 @@ function JobTracker() {
         else setIncorrectInput(true);
 
         setInput('');
+    }
+
+    const handleStatus = (option, arrIndex) => {
+        const updatedJobs = jobs.map((job, index) => {
+            if (arrIndex === index) {
+                return {
+                    ...job,
+                    status: option
+                }
+            } return job;
+        })
+
+        setJobs(updatedJobs);
+        setDisplayDropdown({
+            arrIndex: null,
+            keyIndex: null
+        })
     }
 
   return (
@@ -99,19 +125,34 @@ function JobTracker() {
                     return el.position.toLowerCase().includes(search.toLowerCase()) || el.company.toLowerCase().includes(search.toLowerCase());
                 } return el;
             }).map((job, index) => (
-                <Row className={selectedJob.some((el) => el === job) ? 'activeRow' : ''}>
+                <Row className={selectedJob.some((el) => el === job) || editMode.arrIndex === index ? 'activeRow' : ''}>
                     <TableRow><Checkbox type='checkbox' onChange={() => checkItem(job)} checked={selectedJob.some((el) => el === job)} /></TableRow>
 
                     { Object.keys(job).map((key, i) => (
-                        <TableRow>{editMode.position && editMode.arrIndex === index && editMode.keyIndex === i ? 
+                        <TableRow>{editMode[key] && editMode.arrIndex === index && editMode.keyIndex === i ? 
                             <InputContainer>
                                 <input type='text' defaultValue={job[key]} onChange={(e) => setInput(e.target.value)} />
+                                <CancelBtn onClick={() => setEditMode({
+                                    ...editMode,
+                                    [key]: false
+                                })}>Cancel</CancelBtn>
                                 <SaveBtn onClick={() => handleEdit(index, key)} className={incorrectInput ? 'incorrect-btn' : ''}>Save</SaveBtn>
                             </InputContainer> : 
                             
                             <InputContainer>
                                 <h4>{ job[key] }</h4>
-                                { key === 'status' ? <MdArrowDropDown className='icon status-dropdown edit-icon' /> : <BiEdit className='icon edit-icon' onClick={() => showEditing('position', index, i)} /> }
+                                { key === 'status' ? <MdArrowDropDown className='icon status-dropdown edit-icon' onClick={() => setDisplayDropdown({
+                                    arrIndex: displayDropdown.arrIndex !== index && displayDropdown.keyIndex !== i ? index : null,
+                                    keyIndex: displayDropdown.arrIndex !== index && displayDropdown.keyIndex !== i ? i : null
+                                })} /> : <BiEdit className='icon edit-icon' onClick={() => showEditing(key, index, i)} /> }
+
+                                { displayDropdown.arrIndex === index && displayDropdown.keyIndex === i ? <EditDropdown>
+
+                                          { inputInfo.filter((el) => el.inputType === 'dropdown').map(el => el.options.map((option) => (
+                                                <Option onClick={() => handleStatus(option, index)}>{ option }</Option>
+                                            ))) }
+                            
+                                </EditDropdown>  : null }
                             </InputContainer>}
                         </TableRow>
                     )) }

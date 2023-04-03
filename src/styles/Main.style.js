@@ -35,3 +35,14 @@ export const SaveBtn = styled.button`
         border: 1.5px solid #005149;
     }
 `
+
+export const CancelBtn = styled(SaveBtn)`
+    background: none;
+    color: #005149;
+    border: 1.5px solid #005149;
+
+    &:hover {
+        color: #fff;
+        background-color: #005149;
+    }
+`

@@ -1,9 +1,10 @@
-import { FormWrap, FormInput, FormLabel, InputWrap, SubmitButton, Error } from '../styles/Form.style'
+import { FormWrap, FormInput, FormLabel, InputWrap, SubmitButton, Error, DropdownContainer, Option } from '../styles/Form.style'
 import { BGContainer } from '../styles/Main.style';
 import { IconButton } from '../styles/Main.style';
 
 import { inputInfo } from '../inputInfo'
 import { RxEyeClosed } from "react-icons/rx";
+import { MdOutlineArrowDropDown as DropdownIcon } from "react-icons/md";
 
 import { useContext, useState } from 'react';
 import { AppContext } from '../App';
@@ -12,11 +13,14 @@ function Form() {
 
     const { setAddVisible, setJobs, jobs } = useContext(AppContext);
 
+    const[dropdownVisible, setDropdownVisible] = useState(false);
+    const[currentOption, setCurrentOption] = useState('Applied');
+
     const[userInput, setUserInput] = useState({
         position: '',
         company: '',
         location: '',
-        status: '',
+        status: currentOption,
         date: ''
     })
 
@@ -64,10 +68,24 @@ function Form() {
                 { inputInfo.map((input) => (
                     <InputWrap>
                         <FormLabel htmlFor=''>{ input.title }</FormLabel>
-                        <FormInput type='text' onChange={(e) => setUserInput({
+                        
+                        { input.inputType !== 'dropdown' ? <FormInput type='text' onChange={(e) => setUserInput({
                             ...userInput,
                             [input.type]: e.target.value
-                        })} />
+                        })} /> : <DropdownContainer onClick={() => setDropdownVisible(!dropdownVisible)}>
+                                    <h3>{ currentOption }</h3>
+                                    <div className='dropdownInput'></div>
+                                    <DropdownIcon className='dropdownIcon' />
+
+                                    { dropdownVisible ? <div className='dropdown'>
+                                        { input.options.map((option) => (
+                                            <Option onClick={() => { setCurrentOption(option); setUserInput({
+                                                ...userInput,
+                                                [input.type]: option
+                                            })}}>{ option }</Option>
+                                        )) }
+                                    </div> : null }
+                                 </DropdownContainer> }
                     </InputWrap>
                 )) }
 
