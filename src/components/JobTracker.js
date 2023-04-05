@@ -132,11 +132,14 @@ function JobTracker() {
                         <TableRow>{editMode[key] && editMode.arrIndex === index && editMode.keyIndex === i ? 
                             <InputContainer>
                                 <input type='text' defaultValue={job[key]} onChange={(e) => setInput(e.target.value)} />
-                                <CancelBtn onClick={() => setEditMode({
-                                    ...editMode,
-                                    [key]: false
-                                })}>Cancel</CancelBtn>
-                                <SaveBtn onClick={() => handleEdit(index, key)} className={incorrectInput ? 'incorrect-btn' : ''}>Save</SaveBtn>
+
+                                <div className="table-btns">
+                                    <CancelBtn onClick={() => setEditMode({
+                                        ...editMode,
+                                        [key]: false
+                                    })}>Cancel</CancelBtn>
+                                    <SaveBtn onClick={() => handleEdit(index, key)} className={incorrectInput ? 'incorrect-btn' : ''}>Save</SaveBtn>
+                                </div>
                             </InputContainer> : 
                             
                             <InputContainer>

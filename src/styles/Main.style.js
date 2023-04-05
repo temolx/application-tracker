@@ -40,6 +40,7 @@ export const CancelBtn = styled(SaveBtn)`
     background: none;
     color: #005149;
     border: 1.5px solid #005149;
+    margin-right: 7px;
 
     &:hover {
         color: #fff;

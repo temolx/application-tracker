@@ -77,6 +77,7 @@ export const DropdownContainer = styled.div`
     z-index: 999;
 
     .dropdownInput {
+        position: relative;
         height: 19px;
         background-color: #fff;
         border-radius: 4px;
@@ -84,20 +85,14 @@ export const DropdownContainer = styled.div`
         cursor: pointer;
         transition: 0.3s ease-in-out;
 
+        font-weight: 600;
+        font-size: 14px;
+        color: #000;
+
         :hover {
             background-color: #EFEFEF;
         }
     }
-
-        h3 {
-            position: absolute;
-            top: -8.5px;
-            left: 10px;
-            font-weight: 600;
-            font-size: 14px;
-            color: #000;
-            cursor: pointer;
-        }
 
         .dropdownIcon {
             position: absolute;

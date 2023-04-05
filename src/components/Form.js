@@ -73,8 +73,7 @@ function Form() {
                             ...userInput,
                             [input.type]: e.target.value
                         })} /> : <DropdownContainer onClick={() => setDropdownVisible(!dropdownVisible)}>
-                                    <h3>{ currentOption }</h3>
-                                    <div className='dropdownInput'></div>
+                                    <div className='dropdownInput'>{ currentOption }</div>
                                     <DropdownIcon className='dropdownIcon' />
 
                                     { dropdownVisible ? <div className='dropdown'>

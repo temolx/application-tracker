@@ -83,7 +83,11 @@ export const InputContainer = styled.div`
         justify-content: space-between;
         color: #C2C2C2;
 
-            h4 {
+        .table-btns {
+            display: flex;
+        }
+
+        h4 {
             font-weight: 500;
             text-align: left;
             display: flex;
