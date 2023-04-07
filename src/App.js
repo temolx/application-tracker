@@ -10,6 +10,9 @@ import Filter from './components/Filter';
 import { createContext, useState } from 'react';
 import { inputInfo } from './inputInfo';
 
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+
 export const AppContext = createContext(null);
 
 function App() {
@@ -21,28 +24,28 @@ function App() {
       company: 'Google',
       location: 'Los Angeles, CA',
       status: 'Applied',
-      date: '3/27/23',
+      date: '2/27/2023',
     },
     {
       position: 'Back-End Developer',
       company: 'Meta',
       location: 'San Francisco, CA',
       status: 'Interview',
-      date: '3/26/23',
+      date: '3/26/2023',
     },
     {
       position: 'Financial Assistant',
       company: 'Netflix',
       location: 'Atlanta, GA',
       status: 'Applied',
-      date: '3/24/23',
+      date: '3/24/2023',
     },
     {
       position: 'Back-End Developer',
       company: 'Twitter',
       location: 'Los Angeles, CA',
       status: 'Accepted',
-      date: '3/27/23',
+      date: '3/27/2023',
     },
   ]);
   const[selectedJob, setSelectedJob] = useState([]);
@@ -51,6 +54,7 @@ function App() {
   const[search, setSearch] = useState('');
 
   return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
     <AppContext.Provider value={{ jobs, setJobs, addVisible, setAddVisible, selectedJob, setSelectedJob, selectedJob, filters, setFilters, setFilterVisibility, filterVisibility, search, setSearch }}>
       <AppWrap>
         <GlobalStyles />
@@ -63,6 +67,7 @@ function App() {
         { addVisible ? <Form /> : null }
       </AppWrap>
     </AppContext.Provider>
+    </LocalizationProvider>
   );
 }
 

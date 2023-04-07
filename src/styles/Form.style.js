@@ -29,9 +29,10 @@ export const InputWrap = styled.div`
 
 export const FormInput = styled.input`
   border-radius: 4px;
-  border: 1px solid #dddddd;
+  border: 1px solid #fff;
   padding: 4px;
   outline: none;
+  height: 15.5px;
 `;
 
 export const FormLabel = styled.label`
@@ -130,3 +131,10 @@ export const Option = styled.h2`
         background-color: rgba(5, 5, 5, 0.12);
     }
 `;
+
+export const DateContainer = styled.div`
+  .datepicker {
+    background-color: #fff;
+    border-radius: 4px;
+  }
+`

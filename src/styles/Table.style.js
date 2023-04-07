@@ -88,7 +88,7 @@ export const InputContainer = styled.div`
         }
 
         h4 {
-            font-weight: 500;
+            font-weight: 400;
             text-align: left;
             display: flex;
             transition: 0.3s ease-in-out;
@@ -96,6 +96,9 @@ export const InputContainer = styled.div`
 
         input {
             width: 110px;
+        }
+
+        .editInput {
             border-radius: 5px;
             border: 1px solid black;
             outline: 0.5px solid #005149;

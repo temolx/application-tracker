@@ -11,6 +11,8 @@ import { BiEdit } from "react-icons/bi";
 
 import { inputInfo } from '../inputInfo';
 
+import DateComponent from './DateComponent';
+
 function JobTracker() {
 
     const { jobs, setSelectedJob, selectedJob, filters, search, setJobs } = useContext(AppContext);
@@ -131,7 +133,7 @@ function JobTracker() {
                     { Object.keys(job).map((key, i) => (
                         <TableRow>{editMode[key] && editMode.arrIndex === index && editMode.keyIndex === i ? 
                             <InputContainer>
-                                <input type='text' defaultValue={job[key]} onChange={(e) => setInput(e.target.value)} />
+                                { key === 'date' ? <DateComponent setInput={setInput} defaultValue={job[key]} /> : <input type='text' className='editInput' defaultValue={job[key]} onChange={(e) => setInput(e.target.value)} /> }
 
                                 <div className="table-btns">
                                     <CancelBtn onClick={() => setEditMode({

@@ -1,4 +1,4 @@
-import { FormWrap, FormInput, FormLabel, InputWrap, SubmitButton, Error, DropdownContainer, Option } from '../styles/Form.style'
+import { FormWrap, FormInput, FormLabel, InputWrap, SubmitButton, Error, DropdownContainer, Option, DateContainer } from '../styles/Form.style'
 import { BGContainer } from '../styles/Main.style';
 import { IconButton } from '../styles/Main.style';
 
@@ -9,7 +9,11 @@ import { MdOutlineArrowDropDown as DropdownIcon } from "react-icons/md";
 import { useContext, useState } from 'react';
 import { AppContext } from '../App';
 
+import DateComponent from './DateComponent';
+
 function Form() {
+
+    const todayDate = new Date().toLocaleDateString();
 
     const { setAddVisible, setJobs, jobs } = useContext(AppContext);
 
@@ -41,6 +45,7 @@ function Form() {
         }
         if (Object.values(userInput).every((value) => value !== '')) {
             setJobs([...jobs, userInput])
+            // console.log(jobs);
 
             setErrors({
                 empty: '',
@@ -67,12 +72,12 @@ function Form() {
 
                 { inputInfo.map((input) => (
                     <InputWrap>
-                        <FormLabel htmlFor=''>{ input.title }</FormLabel>
+                        <FormLabel>{ input.title }</FormLabel>
                         
-                        { input.inputType !== 'dropdown' ? <FormInput type='text' onChange={(e) => setUserInput({
+                        { input.inputType !== 'dropdown' && input.inputType !== 'date' ? <FormInput type='text' onChange={(e) => setUserInput({
                             ...userInput,
                             [input.type]: e.target.value
-                        })} /> : <DropdownContainer onClick={() => setDropdownVisible(!dropdownVisible)}>
+                        })} /> : (input.inputType !== 'date' ? <DropdownContainer onClick={() => setDropdownVisible(!dropdownVisible)}>
                                     <div className='dropdownInput'>{ currentOption }</div>
                                     <DropdownIcon className='dropdownIcon' />
 
@@ -84,7 +89,7 @@ function Form() {
                                             })}}>{ option }</Option>
                                         )) }
                                     </div> : null }
-                                 </DropdownContainer> }
+                                 </DropdownContainer> : <DateComponent setInput={setUserInput} input={userInput} dateKey={input} />)}
                     </InputWrap>
                 )) }
 
