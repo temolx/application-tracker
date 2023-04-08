@@ -39,6 +39,7 @@ function Header() {
           ><MdLibraryAdd className='icon' /></IconButton>
           <IconButton
             onClick={() => !addVisible && setFilterVisibility(true)}
+            disabled={jobs.length === 0}
           ><MdFilterList className='icon' /></IconButton>
           
           <IconButton onClick={showDropdown}>

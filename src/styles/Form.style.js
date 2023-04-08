@@ -75,7 +75,8 @@ export const Error = styled.p`
 
 export const DropdownContainer = styled.div`
     position: relative;
-    z-index: 999;
+    z-index: 99;
+
 
     .dropdownInput {
         position: relative;
@@ -94,7 +95,6 @@ export const DropdownContainer = styled.div`
             background-color: #EFEFEF;
         }
     }
-
         .dropdownIcon {
             position: absolute;
             top: 4px;
@@ -109,8 +109,9 @@ export const DropdownContainer = styled.div`
         position: absolute;
         top: 35px;
         left: 0;
-        width: 100%;
+        /* width: 100%; */
         box-shadow: 10px 10px 97px -10px rgba(0,0,0,0.40);
+        white-space: nowrap;
     }
 `;
 

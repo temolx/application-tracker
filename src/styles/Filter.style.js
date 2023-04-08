@@ -5,6 +5,7 @@ export const SelectWrap = styled.div`
     justify-content: space-between;
     margin-top: 15px;
     position: relative;
+    z-index: 1;
 
     &:not(&:last-child) {
         margin-bottom: 42px;
@@ -30,16 +31,26 @@ export const SelectWrap = styled.div`
     }
 `
 
-export const FilterSelect = styled.select`
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100px;
-    height: 25px;
-    border-radius: 5px;
-    outline: none;
-    /* appearance: none */
-    padding-left: 5px;
+export const FilterSelect = styled.div`
+        position: relative;
+        background-color: #fff;
+        border-radius: 4px;
+        padding: 4px;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+        width: 80px;
+
+        font-weight: 600;
+        font-size: 14px;
+        color: #000;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        :hover {
+            background-color: #EFEFEF;
+        }
 `
 
 export const FilterLabel = styled.label`
