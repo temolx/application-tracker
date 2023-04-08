@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { AppContext } from '../App'
+import { AppContext, FilterContext } from '../App'
 import { inputInfo } from '../inputInfo'
 
 import { SelectWrap, FilterSelect, FilterLabel, ClearButton } from '../styles/Filter.style'
@@ -11,20 +11,10 @@ import { AiOutlinePlusSquare as PlusIcon, AiOutlineMinusSquare as MinusIcon } fr
 
 function Filter() {
 
-    const { jobs, setFilters, setFilterVisibility } = useContext(AppContext);
-
-    const[filterVisible, setFilterVisible] = useState(Object.fromEntries(inputInfo.map((item) => [item.type, false])));
-    const[currentFilters, setCurrentFilters] = useState(Object.fromEntries(inputInfo.map((item) => [item.type, ''])))
+    const { jobs } = useContext(AppContext);
+    const { currentFilters, setCurrentFilters, filterVisible, setFilterVisible, setFilters, setFilterVisibility } = useContext(FilterContext);
 
     const[dropdownVisible, setDropdownVisible] = useState(null);
-
-    // const[currentInput, setCurrentInput] = useState({
-    //     position: jobs[0].position,
-    //     company: jobs[0].company,
-    //     location: jobs[0].location,
-    //     status: 'Applied',
-    //     date: jobs[0].date
-    // })
 
     const displayFilter = (e, type) => {
         e.preventDefault();
@@ -50,8 +40,8 @@ function Filter() {
     }
 
     const handleSubmit = (e) => {
-        if (e) e.preventDefault();
-        
+        e.preventDefault();
+
         setFilters(currentFilters);
         setFilterVisibility(false);
     }
@@ -59,9 +49,12 @@ function Filter() {
     const handleClear = (e) => {
         e.preventDefault();
 
-        setCurrentFilters(Object.fromEntries(inputInfo.map((item) => [item.type, ''])));
+        const updatedCurrFilters = Object.fromEntries(inputInfo.map((item) => [item.type, '']));
+        setCurrentFilters(updatedCurrFilters);
+        setFilters(updatedCurrFilters);
+        setFilterVisibility(false);
+
         setFilterVisible(Object.fromEntries(inputInfo.map((item) => [item.type, false])));
-        handleSubmit();
     }
 
   return (

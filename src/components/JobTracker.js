@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { AppContext } from '../App';
+import { AppContext, FilterContext } from '../App';
 
 import { Table, TableHeader, TableRow, TableComponent, Row, InputContainer, EditDropdown } from '../styles/Table.style'
 import { Option } from '../styles/Form.style';
@@ -15,7 +15,8 @@ import DateComponent from './DateComponent';
 
 function JobTracker() {
 
-    const { jobs, setSelectedJob, selectedJob, filters, search, setJobs } = useContext(AppContext);
+    const { jobs, setSelectedJob, selectedJob, search, setJobs } = useContext(AppContext);
+    const { filters } = useContext(FilterContext);
 
     const defaultEditSetting = {...Object.fromEntries(inputInfo.map((el) => [el.type, false])), arrIndex: null, keyIndex: null};
 

@@ -14,6 +14,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 export const AppContext = createContext(null);
+export const FilterContext = createContext(null)
 
 function App() {
 
@@ -49,23 +50,28 @@ function App() {
     },
   ]);
   const[selectedJob, setSelectedJob] = useState([]);
+  const[search, setSearch] = useState('');
+
   const[filters, setFilters] = useState(Object.fromEntries(inputInfo.map((item) => [item.type, ''])))
   const[filterVisibility, setFilterVisibility] = useState(false);
-  const[search, setSearch] = useState('');
+  const[currentFilters, setCurrentFilters] = useState(Object.fromEntries(inputInfo.map((item) => [item.type, ''])))
+  const[filterVisible, setFilterVisible] = useState(Object.fromEntries(inputInfo.map((item) => [item.type, false])));
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <AppContext.Provider value={{ jobs, setJobs, addVisible, setAddVisible, selectedJob, setSelectedJob, selectedJob, filters, setFilters, setFilterVisibility, filterVisibility, search, setSearch }}>
-      <AppWrap>
-        <GlobalStyles />
+    <AppContext.Provider value={{ jobs, setJobs, addVisible, setAddVisible, selectedJob, setSelectedJob, selectedJob, search, setSearch }}>
+      <FilterContext.Provider value={{ filters, setFilters, filterVisibility, setFilterVisibility, currentFilters, setCurrentFilters, filterVisible, setFilterVisible }}>
+        <AppWrap>
+          <GlobalStyles />
 
-        <Sidebar />
-        <Header />
-        <JobTracker />
+          <Sidebar />
+          <Header />
+          <JobTracker />
 
-        { filterVisibility ? <Filter /> : null }
-        { addVisible ? <Form /> : null }
-      </AppWrap>
+          { filterVisibility ? <Filter /> : null }
+          { addVisible ? <Form /> : null }
+        </AppWrap>
+      </FilterContext.Provider>
     </AppContext.Provider>
     </LocalizationProvider>
   );

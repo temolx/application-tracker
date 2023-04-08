@@ -12,9 +12,6 @@ import { AppContext } from '../App';
 import DateComponent from './DateComponent';
 
 function Form() {
-
-    const todayDate = new Date().toLocaleDateString();
-
     const { setAddVisible, setJobs, jobs } = useContext(AppContext);
 
     const[dropdownVisible, setDropdownVisible] = useState(false);

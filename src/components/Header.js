@@ -4,11 +4,12 @@ import { HeaderWrap, SettingsDropdown } from '../styles/Header.style';
 import { IconButton, SaveBtn } from '../styles/Main.style';
 
 import { useContext, useState } from "react";
-import { AppContext } from "../App";
+import { AppContext, FilterContext } from "../App";
 
 function Header() {
 
-  const { setAddVisible, selectedJob, setSelectedJob, setJobs, jobs, setFilterVisibility, filterVisibility, addVisible, setSearch, search } = useContext(AppContext);
+  const { setAddVisible, selectedJob, setSelectedJob, setJobs, jobs, addVisible, setSearch, search } = useContext(AppContext);
+  const { setFilterVisibility, filterVisibility } = useContext(FilterContext);
 
   const[visible, setVisible] = useState(false);
 
