@@ -2,6 +2,10 @@ import styled from "styled-components";
 
 export const AppWrap = styled.div`
     padding: 100px;
+
+    @media only screen and (max-width: 768px) {
+        padding-left: 25px;
+    }
 `
 export const IconButton = styled.button`
     background: none;
@@ -41,9 +45,11 @@ export const CancelBtn = styled(SaveBtn)`
     color: #005149;
     border: 1.5px solid #005149;
     margin-right: 7px;
+    margin-left: 10px;
 
     &:hover {
         color: #fff;
         background-color: #005149;
     }
+
 `

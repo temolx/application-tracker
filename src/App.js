@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Form from './components/Form';
 import Filter from './components/Filter';
+import EmptyTable from './components/EmptyTable';
 
 import { createContext, useState } from 'react';
 import { inputInfo } from './inputInfo';
@@ -66,7 +67,7 @@ function App() {
 
           <Sidebar />
           <Header />
-          <JobTracker />
+          { jobs.length === 0 ? <EmptyTable /> : <JobTracker /> }
 
           { filterVisibility ? <Filter /> : null }
           { addVisible ? <Form /> : null }

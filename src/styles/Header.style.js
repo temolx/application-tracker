@@ -6,6 +6,10 @@ export const HeaderWrap = styled.div`
     margin-bottom: 10px;
     position: relative;
 
+    @media only screen and (max-width: 768px) {
+        margin-bottom: 30px;
+    } 
+
     .settins-icon {
         margin-left: 15px;
     }
@@ -22,6 +26,7 @@ export const HeaderWrap = styled.div`
         }
     }
 `
+
 
 export const SettingsDropdown = styled.div`
     position: absolute;

@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { AppContext, FilterContext } from '../App';
 
-import { Table, TableHeader, TableRow, TableComponent, Row, InputContainer, EditDropdown } from '../styles/Table.style'
+import { Table, TableHeader, TableRow, TableComponent, Row, InputContainer, EditDropdown, RowContainer } from '../styles/Table.style'
 import { Option } from '../styles/Form.style';
 import { Checkbox } from '../styles/Input.style'
 import { SaveBtn, CancelBtn } from '../styles/Main.style';
@@ -12,6 +12,7 @@ import { BiEdit } from "react-icons/bi";
 import { inputInfo } from '../inputInfo';
 
 import DateComponent from './DateComponent';
+import NotFound from './NotFound';
 
 function JobTracker() {
 
@@ -76,6 +77,15 @@ function JobTracker() {
         setInput('');
     }
 
+    const handleCancel = (key) => {
+        setEditMode({
+            ...editMode,
+            [key]: false,
+            arrIndex: null,
+            keyIndex: null
+        })
+    }
+
     const handleStatus = (option, arrIndex) => {
         const updatedJobs = jobs.map((job, index) => {
             if (arrIndex === index) {
@@ -93,41 +103,44 @@ function JobTracker() {
         })
     }
 
+    const filteredJobs = jobs.filter((el) => { // this could be more dynamic-ish
+        if (filters.position !== '') {
+            return filters.position === el.position;
+        } else return el;
+        }).filter((el) => {
+            if (filters.company !== '') {
+                return filters.company === el.company;
+            } else return el;
+        }).filter((el) => {
+            if (filters.location !== '') {
+                return filters.location === el.location;
+            } else return el;
+        }).filter((el) => {
+            if (filters.status !== '') {
+                return filters.status === el.status;
+            } else return el;
+        }).filter((el) => {
+            if (filters.date !== '') {
+                return filters.date === el.date;
+            } else return el;
+        }).filter((el) => {
+            if (search !== '') {
+                return el.position.toLowerCase().includes(search.toLowerCase()) || el.company.toLowerCase().includes(search.toLowerCase());
+            } return el;
+        })
+
   return (
     <TableComponent>
         <Table>
-            <tr>
+            <tr className='test'>
                 <TableHeader></TableHeader>
                 { inputInfo.map((header) => (
                     <TableHeader>{ header.title } { header.icon }</TableHeader>
                 ))}
             </tr>
-
-            { jobs && jobs.filter((el) => {
-                if (filters.position !== '') { // this could be more dynamic-ish
-                    return filters.position === el.position;
-                } else return el;
-            }).filter((el) => {
-                if (filters.company !== '') {
-                    return filters.company === el.company;
-                } else return el;
-            }).filter((el) => {
-                if (filters.location !== '') {
-                    return filters.location === el.location;
-                } else return el;
-            }).filter((el) => {
-                if (filters.status !== '') {
-                    return filters.status === el.status;
-                } else return el;
-            }).filter((el) => {
-                if (filters.date !== '') {
-                    return filters.date === el.date;
-                } else return el;
-            }).filter((el) => {
-                if (search !== '') {
-                    return el.position.toLowerCase().includes(search.toLowerCase()) || el.company.toLowerCase().includes(search.toLowerCase());
-                } return el;
-            }).map((job, index) => (
+            
+            { filteredJobs.length !== 0 ? <RowContainer>
+            { jobs && filteredJobs.map((job, index) => (
                 <Row className={selectedJob.some((el) => el === job) || editMode.arrIndex === index ? 'activeRow' : ''}>
                     <TableRow><Checkbox type='checkbox' onChange={() => checkItem(job)} checked={selectedJob.some((el) => el === job)} /></TableRow>
 
@@ -137,10 +150,7 @@ function JobTracker() {
                                 { key === 'date' ? <DateComponent setInput={setInput} defaultValue={job[key]} /> : <input type='text' className='editInput' defaultValue={job[key]} onChange={(e) => setInput(e.target.value)} /> }
 
                                 <div className="table-btns">
-                                    <CancelBtn onClick={() => setEditMode({
-                                        ...editMode,
-                                        [key]: false
-                                    })}>Cancel</CancelBtn>
+                                    <CancelBtn onClick={() => handleCancel(key)}>Cancel</CancelBtn>
                                     <SaveBtn onClick={() => handleEdit(index, key)} className={incorrectInput ? 'incorrect-btn' : ''}>Save</SaveBtn>
                                 </div>
                             </InputContainer> : 
@@ -163,9 +173,12 @@ function JobTracker() {
                         </TableRow>
                     )) }
                 </Row>
-            )) }
 
+                
+            )) }
+            </RowContainer> : <NotFound /> }
         </Table>
+        
     </TableComponent>
   )
 }

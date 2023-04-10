@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const TableComponent = styled.div`
+
 `
 
 export const Table = styled.table`
@@ -15,6 +16,10 @@ export const Table = styled.table`
             color: #000;
         }
     }
+
+    @media only screen and (max-width: 768px) {
+        display: flex;
+    } 
 `
 
 export const TableHeader = styled.th`
@@ -23,7 +28,6 @@ export const TableHeader = styled.th`
     background-color: #FCFAF9;
     color: #090909;
     text-align: left;
-    
 
     &:first-of-type {
         border-left: none;
@@ -32,6 +36,19 @@ export const TableHeader = styled.th`
     &:nth-child(2) {
         border-left: none;
     }
+
+    @media only screen and (max-width: 768px) {
+        display: none;
+    } 
+`
+
+export const RowContainer = styled.tbody`
+
+    @media only screen and (max-width: 768px) {
+        display: block;
+        border: 1px solid #DDDDDD;
+        border-radius: 7px;
+    } 
 `
 
 export const TableRow = styled.td`
@@ -61,10 +78,18 @@ export const TableRow = styled.td`
     &:nth-child(2) {
         border-left: none;
     }
+
+    @media only screen and (max-width: 768px) {
+        border: none;
+        display: flex;
+        width: 300px;
+
+    } 
 `
 
 export const Row = styled.tr`
     transition: 0.3s ease-in-out;
+    border-bottom: 1px solid #DDDDDD;
 
     &:hover {
         background-color: #E4EDEC;
